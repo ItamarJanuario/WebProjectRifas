@@ -28,8 +28,8 @@ Route.group(() => {
   Route.post('/registerRuffles', 'RufflesController.store').as('ruffle.store')
   Route.get('/showRuffles', 'RufflesController.show').as('ruffle.show')
   //Criando rotas para mostrar todos os tickets e compralos.
-  Route.get('/showTickets', 'TicketsController.show').as('ticket.show')
-  Route.post('showTickets/:id/tickets/:ticketId/buy', 'TicketsController.buy').as('ticket.buy')
+  Route.get('/showrRuffles/:id/tickets', 'TicketsController.show').as('ticket.show')
+  Route.get('/showRuffles/:id/tickets/:ticketId/buy', 'TicketsController.buy').as('ticket.buy')
 
   Route.get('/registerTypes', 'TypesController.create').as('type.create')
   Route.post('/registerTypes', 'TypesController.create').as('type.store')

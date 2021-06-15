@@ -1,5 +1,27 @@
 @layout('layout/app')
 
 @section('content')
-  <h1>tickets</h1>
+    <h2>Tickets da rifa {{ ruffle.title }}</h2>
+    <ul class="list-group mt-3">
+        
+      <div class = "row">
+        @each(ticket in tickets)
+         <div class="list-group  col-3 mb-3">
+          <div class="d-flex flex-row">
+            <a href="{{ route('ticket.show', { id: ruffle.id }) }}"   class="list-group-item " aria-current="true">
+            <small class = "fw-bold">{{ ticket.number }}</small>
+            </a>
+
+            {{--  {{ inspect(ticket) }}  --}}
+            @if(ticket.userId)
+              <a class="btn btn-success ms-3 disabled" >Vendido</a>                   
+            @else
+              <a href="{{ route('ticket.buy', { id: ruffle.id,   ticketId: ticket.id }) }}" class="btn btn-success ms-3">Comprar</a>              
+            @endif
+            </div>
+          </div>
+        @endeach
+      </div>
+        
+    </ul>
 @endsection

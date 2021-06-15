@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Prize from 'App/Models/Prize'
 import Ruffle from 'App/Models/Ruffle'
 import Type from 'App/Models/Type'
 import ValidatorRuffles from 'App/Validators/ValidatorRuffles'
@@ -22,10 +23,14 @@ export default class RufflesController {
       'typeId',
     ])
 
+    const dataPrize = await request.only(['prize'])
+
     console.log(database)
 
     await request.validate(ValidatorRuffles)
     const ruffle = await auth.user!!.related('ruffles').create(database)
+
+    await ruffle.related('prizes').create({ description: dataPrize.prize, placing: '1' })
 
     let tickets: Array<Object> = []
 

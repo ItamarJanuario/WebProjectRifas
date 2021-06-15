@@ -9,8 +9,8 @@ export default class Prizes extends BaseSchema {
       table.string('description').notNullable()
       table.string('placing').notNullable()
       table.integer('sort')
-      table.integer('ruffle').unsigned().notNullable().references('id').inTable('ruffles')
-      table.integer('ticket_sort').unsigned().references('id').inTable('tickets')
+      table.integer('ruffle_id').unsigned().notNullable().references('id').inTable('ruffles')
+      table.integer('ticket_id').unsigned().references('id').inTable('tickets')
 
       table.timestamps(true)
     })

@@ -41,6 +41,9 @@
 
     <label for="description" class="form-label">Descrição</label>
     <input class="form-control mb-3" type="text" name="description" id="description" value="{{ flashMessages.get('description') || '' }}">
+
+    <label for="prize" class="form-label">Informe o Premio</label>
+    <input class="form-control mb-3" type="text" name="prize" id="prize" value="{{ flashMessages.get('prize') || '' }}">
     
     <label for="pobableDate" class="form-label">Data provável do sorteio</label>
     <input class="form-control mb-3" type="datetime-local" name="pobableDate" id="pobableDate" value="{{ flashMessages.get('pobableDate') || '' }}">
