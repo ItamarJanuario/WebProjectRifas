@@ -1,0 +1,94 @@
+@layout('layout/app')
+
+@section('content')
+  <h1>Registre a Rifa.</h1>
+  <form action="{{ route('ruffle.store') }}" method="POST">
+    {{ csrfField()}}
+    
+        {{--  <div class="form-floating mb-4">
+          <input type="text" class="form-control" name="title" id="title"  autofocus>
+          <label for="titulo">Titulo</label>
+        </div>
+
+        <div class="form-floating mb-4">
+          <textarea class="form-control" placeholder="Descrição da rifa." id="description" style="height: 100px"></textarea>
+          <label for="description">Descrição da rifa.</label>
+        </div>
+
+        <div class="form-check">
+          @each(type in types)
+            <input class="form-check-input" type="radio" name="types" id="types">
+            <label class="form-check-label" for="types">
+             {{ type.id }}
+            </label>
+          @endeach
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+          Default checked radio
+          </label>
+        </div>
+
+    
+     <a href="{{ route('root') }}" class= "btn btn-primary">Voltar.</a>
+      <button type="submit" class="btn btn-success">Cadastrar.</button>  --}}
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Título</label>
+    <input class="form-control mb-3" type="text" name="title" id="title" value="{{ flashMessages.get('title') || '' }}">
+
+    <label for="description" class="form-label">Descrição</label>
+    <input class="form-control mb-3" type="text" name="description" id="description" value="{{ flashMessages.get('description') || '' }}">
+    
+    <label for="pobableDate" class="form-label">Data provável do sorteio</label>
+    <input class="form-control mb-3" type="datetime-local" name="pobableDate" id="pobableDate" value="{{ flashMessages.get('pobableDate') || '' }}">
+
+    <div class="row">
+        <div class="col-6">
+            <label for="initDate" class="form-label">Data inicial da venda</label>
+            <input class="form-control mb-3" type="datetime-local" name="initDate" id="initDate" value="{{ flashMessages.get('initDate') || '' }}">
+        </div>
+        <div class="col-6">
+            <label for="endDate" class="form-label">Data final da venda</label>
+            <input class="form-control mb-3" type="datetime-local" name="endDate" id="endDate" value="{{ flashMessages.get('endDate') || '' }}">
+        </div>                
+    </div>        
+    
+    <div class="row">
+        <div class="col-6">
+            <label for="valueTicket" class="form-label">Valor do bilhete</label>
+            <input class="form-control mb-3" type="number" name="valueTicket" id="valueTicket" value="{{ flashMessages.get('valueTicket') || '' }}">
+        </div>    
+        <div class="col-6">
+            <label for="type" class="form-label">Tipo</label>
+            <select class="form-select" name="typeId" id="typeId" required>
+            <option disabled selected>Selecione um tipo...</option>
+            @each(type in types)
+                <option class="form-control mb-3" value="{{ type.id }}" 
+                title="Número de bilhetes: {{ type.quantTickets}}
+                  Número Inicial dos Bilhetes: {{ type.initialNumber }}
+                  Número de Passos: {{ type.step }}">
+                    {{ type.description }}
+                </option>
+            @endeach
+            </select>
+        </div>
+    </div>
+
+    @if(flashMessages.has('errors.title'))
+        <small class="text-danger">{{ flashMessages.get('errors.title') }}</small>
+    @endif
+
+     @if(flashMessages.has('errors.description'))
+        <small class="text-danger">{{ flashMessages.get('errors.description') }}</small>
+    @endif
+</div>
+
+  <a href="{{ route('root') }}" class= "btn btn-primary">Voltar.</a>
+      <button type="submit" class="btn btn-success">Cadastrar.</button>
+  </form>
+
+
+@endsection

@@ -1,0 +1,12 @@
+@layout('layout/app')
+
+@section('content')
+ <li class="nav-item dropdown text-dark">
+                
+  <Form action= "{{ route('ruffle.store') }}" method="POST">
+  {{ csrfField() }}
+    <div>
+      <label for="theme"> tema </label>
+    </div>
+  </Form>
+@endsection

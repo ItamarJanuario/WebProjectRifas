@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    @entryPointStyles('app')
+    @entryPointScripts('app')
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class = "container">
+          <a class="navbar-brand fw-bold fs-4" href="{{ route('root') }}">Home</a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              @if(auth.isLoggedIn)
+                <li class="nav-item">
+                  <a class="nav-link active  fw-bold" aria-current="page" href="{{ route('ruffle.show') }}">Rifas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active  fw-bold" aria-current="page" href="{{ route('ruffle.create') }}">Cadastrar Rifa</a>
+                </li>
+                @if(auth.user.admin === true)
+                <li class="nav-item">
+                  <a class="nav-link active  fw-bold" aria-current="page" href="{{ route('type.create') }}">Cadastrar Tipo</a>
+                </li>
+                @endif
+              @endif  
+            </ul>
+            <ul class="navbar-nav">
+              {{--  <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ route('about') }}">Sobre</a>
+              </li>  --}}
+              @if(auth.isLoggedIn)
+                
+                <li class="nav-item">
+                  <a class="nav-link  fw-bold">{{ auth.user?.name }}</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link  fw-bold" href="{{ route('auth.logout') }}">Logout</a>
+                </li>
+              @else
+                <li class="nav-item">
+                  <a class="nav-link  fw-bold" href="{{ route('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link  fw-bold" href="{{ route('auth.register') }}">Registrar</a>
+                </li>
+              @endif
+            </ul>
+          </div>
+          </nav>
+        </div>
+    @!section('content')
+</body>
+</html>
