@@ -33,6 +33,10 @@ Route.group(() => {
 
   Route.get('/registerTypes', 'TypesController.create').as('type.create')
   Route.post('/registerTypes', 'TypesController.create').as('type.store')
+
+  Route.get('/registerPrize', 'PrizeController.create').as('prize.create')
+
+  Route.get('/registerPrize', 'PrizeController.create').as('prize.store')
 }).middleware('auth')
 
 Route.get('/login', 'AuthController.login').as('auth.login')

@@ -1,17 +1,20 @@
 @layout('layout/app')
 
 @section('content')
-    <h2>Rifas Criadas</h2>
+    <h2>Rifas Criadas por Você:</h2>
     <ul class="list-group mt-3">
         @each(ruffle in ruffles)
          <div class="list-group">
             <a href="{{ route('ticket.show', { id: ruffle.id }) }}"   class="list-group-item " aria-current="true">
               <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ ruffle.title }}</h5>
-                          <p class="mb-1 ">{{ ruffle.description }}.</p>
-            <small class = "fw-bold">{{ ruffle.endDate }}</small>
+                <h5 class="mb-1">{{ ruffle.title }}</h5>
+              </div>
+            <p class="mb-1 ">{{ ruffle.description }}.</p>
+            <small class = "fw-bold">{{ ruffle.pobableDate }}</small>
             </a>
           </div>
+
+          <a href="{{ route('prize.create', { id: ruffle.id }) }}"></a>
            
         @endeach
 
