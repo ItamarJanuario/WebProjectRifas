@@ -1,12 +1,53 @@
 @layout('layout/app')
 
 @section('content')
- <li class="nav-item dropdown text-dark">
-                
-  <Form action= "{{ route('ruffle.store') }}" method="POST">
-  {{ csrfField() }}
-    <div>
-      <label for="theme"> tema </label>
+  <h1>Registre o tipo.</h1>
+  <form action="{{ route('type.store') }}" method="POST">
+    {{ csrfField()}}
+
+  <div class="mb-3">
+
+    <label for="description" class="form-label">Descrição</label>
+    <input class="form-control mb-3" type="text" name="description" id="description" value="{{ flashMessages.get('description') || '' }}">
+
+        <div class="col-6">
+            <label for="initialNumber" class="form-label">Número inicial</label>
+            <input class="form-control mb-3" type="number" name="initialNumber" id="initialNumber" value="{{ flashMessages.get('initialNumber') || '' }}">
+        </div>
+        
+        <div class="col-6">
+            <label for="step" class="form-label">Quantidade de Passos:</label>
+            <input class="form-control mb-3" type="number" name="step" id="step" value="{{ flashMessages.get('step') || '' }}">
+        </div>
+
+        <div class="col-6">
+            <label for="type" class="form-label">Tipo</label>
+            <select class="form-select" name="typeId" id="typeId" required>
+            <option disabled selected>Selecione um tipo...</option>
+            @each(type in types)
+                <option class="form-control mb-3" value="{{ type.id }}" 
+                title="Número de bilhetes: {{ type.quantTickets}}
+                  Número Inicial dos Bilhetes: {{ type.initialNumber }}
+                  Número de Passos: {{ type.step }}">
+                    {{ type.description }}
+                </option>
+            @endeach
+            </select>
+        </div>
     </div>
-  </Form>
+
+    @if(flashMessages.has('errors.title'))
+        <small class="text-danger">{{ flashMessages.get('errors.title') }}</small>
+    @endif
+
+     @if(flashMessages.has('errors.description'))
+        <small class="text-danger">{{ flashMessages.get('errors.description') }}</small>
+    @endif
+</div>
+
+  <a href="{{ route('root') }}" class= "btn btn-primary">Voltar.</a>
+      <button type="submit" class="btn btn-success">Cadastrar.</button>
+  </form>
+
+
 @endsection

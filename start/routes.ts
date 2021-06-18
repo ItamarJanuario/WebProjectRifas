@@ -23,6 +23,7 @@ import Route from '@ioc:Adonis/Core/Route'
 //grupo de rotas que apontam para o login.
 
 Route.group(() => {
+  Route.get('/', 'HomeController.index').as('root')
   //Criando rotas para registrar e armazenar rifas e também mostrar.
   Route.get('/registerRuffles', 'RufflesController.create').as('ruffle.create')
   Route.post('/registerRuffles', 'RufflesController.store').as('ruffle.store')
@@ -34,9 +35,9 @@ Route.group(() => {
   Route.get('/registerTypes', 'TypesController.create').as('type.create')
   Route.post('/registerTypes', 'TypesController.create').as('type.store')
 
-  Route.get('/registerPrize', 'PrizeController.create').as('prize.create')
+  Route.get('/ruffles/:ruffle_id/prizes/create', 'PrizesController.create').as('prize.create')
 
-  Route.get('/registerPrize', 'PrizeController.create').as('prize.store')
+  Route.post('/ruffles/:ruffle_id/prizes', 'PrizesController.store').as('prize.store')
 }).middleware('auth')
 
 Route.get('/login', 'AuthController.login').as('auth.login')
@@ -44,5 +45,3 @@ Route.post('/login', 'AuthController.verify').as('auth.verify')
 Route.get('/logout', 'AuthController.logout').as('auth.logout')
 Route.get('/register', 'AuthController.register').as('auth.register')
 Route.post('/register', 'AuthController.store').as('auth.store')
-
-Route.get('/', 'HomeController.index').as('root')

@@ -1,0 +1,27 @@
+@layout('layout/app')
+
+@section('content')
+  <h1>Registre Premio.</h1>
+  <form action="{{ route('prize.store', { ruffle_id: ruffle.id, placing }) }}" method="POST">
+    {{ csrfField()}}
+    <div class="mb-3">
+      <label for="description" class="form-label">Descrição do Premio</label>
+      <input class="form-control mb-3" type="text" name="description" id="description" value="{{ flashMessages.get('description') || '' }}">
+
+      <button class="btn btn-success" type="submit">Registrar</button>
+      <a href="{{ route('root') }}" role="button" class="btn btn-primary">Finalizar</a>
+      @if(flashMessages.has('errors.description'))
+        <small class="text-danger">{{ flashMessages.get('errors.description') }}</small>
+      @endif
+    </div>
+  </form>
+  <h1>Prêmios registrados</h1>
+  <ul class="list-group">
+    @each(prize in ruffle.prizes)
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <p class="m-0">{{ prize.description }}</p>
+        <span class="badge bg-primary">{{ prize.placing }}</span>
+    </li>
+    @endeach
+  </ul>
+@endsection
