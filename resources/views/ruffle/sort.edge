@@ -1,0 +1,22 @@
+@layout('layout/app')
+@section('content')
+
+<div class="jumbotron">
+  <h1 class="display-4 p-3 mb-2">Ganhadores:</h1>
+  <hr class="my-4">
+</div>
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">
+  @each(prize in prizeWinner)
+     <p>Prêmio: {{prize.description}}</p>
+
+     <p> nome do vencedor {{prize.ticketSort.user.name}}</p>
+     <hr>
+
+  @endeach
+
+</div>
+</div>
+  <a href="{{  route('usuario.minhasRifas' )}}" class = "mika  btn btn-danger">Voltar</a>
+
+  @endsection

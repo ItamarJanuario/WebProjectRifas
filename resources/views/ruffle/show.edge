@@ -5,16 +5,18 @@
     <ul class="list-group mt-3">
         @each(ruffle in ruffles)
          <div class="list-group">
-            <a href="{{ route('ticket.show', { id: ruffle.id }) }}"   class="list-group-item " aria-current="true">
+            <div class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{ ruffle.title }}</h5>
               </div>
-            <p class="mb-1 ">{{ ruffle.description }}.</p>
-            <small class = "fw-bold">{{ ruffle.pobableDate }}</small>
-            </a>
+              <p class="mb-1 ">{{ ruffle.description }}.</p>
+              <small class = "fw-bold">{{ ruffle.pobableDate }}</small>
+              <a class="btn btn-success ms-3   fw-bold"  href="{{ route('ruffle.sort', { ruffle_id: ruffle.id }) }}">Sortear Rifa</a>  
+              <a class=" btn btn-success ms-3 fw-bold "  href="{{ route('prize.create', { ruffle_id: ruffle.id }) }}">Adicionar mais Premios</a>                       
+            </div> 
           </div>
 
-          <a href="{{ route('prize.create', { ruffle_id: ruffle.id }) }}"></a>
+          
            
         @endeach
 

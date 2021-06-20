@@ -22,6 +22,7 @@
                 <li class="nav-item">
                   <a class="nav-link active  fw-bold" aria-current="page" href="{{ route('ruffle.create') }}">Cadastrar Rifa</a>
                 </li>
+                
                 @if(auth.user.admin === true)
                 <li class="nav-item">
                   <a class="nav-link active  fw-bold" aria-current="page" href="{{ route('type.create') }}">Cadastrar Tipo</a>

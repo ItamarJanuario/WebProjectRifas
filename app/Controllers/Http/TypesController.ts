@@ -6,15 +6,14 @@ export default class TypesController {
     const type = new Type()
 
     // eslint-disable-next-line no-array-constructor
-    if (auth.user?.admin === false) {
+    if (!auth.user?.admin) {
       response.redirect().toRoute('root')
-    } else {
-      return view.render('type/create', { type })
     }
+    return view.render('type/create', { type })
   }
 
   public async store({ request, response }: HttpContextContract) {
-    const database = await request.only(['description', 'initialNumber', 'step', 'quantTickets'])
+    const database = await request.only(['description', 'initialNumber', 'step', 'ticketsQuant'])
     const type = await Type.create(database)
     response.redirect().toRoute('ruffle.show', { type })
   }

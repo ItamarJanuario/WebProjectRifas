@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Prize from 'App/Models/Prize'
 import Ruffle from 'App/Models/Ruffle'
+import Ticket from 'App/Models/Ticket'
 import Type from 'App/Models/Type'
 import ValidatorRuffles from 'App/Validators/ValidatorRuffles'
 
@@ -52,5 +53,61 @@ export default class RufflesController {
 
     session.flash('notice', '[ SUCESS ] Rifa atualizou com sucesso.')
     response.redirect().toRoute('raffle.show')
+  }
+
+  public async sort({ view, params, response, session, auth }: HttpContextContract) {
+    const ruffle = await auth
+      .user!!.related('ruffles')
+      .query()
+      .where('ruffles.id', params.ruffle_id)
+      .firstOrFail()
+
+    const type = await Type.find(ruffle.typeId)
+
+    let notSort = true
+
+    const prizes = await Prize.query().where('ruffle_id', params.ruffle_id)
+
+    let maxPrizes = 0
+    let contPrizes = 1
+    let ruffleBuy = false
+
+    for (const prize of prizes) {
+      maxPrizes++
+    }
+    do {
+      do {
+        const numberSort = Math.floor(Math.random() * (1000 - 1) + 1)
+        //54
+        const ticket = await Ticket.query()
+          .where('tickets.ruffle_id', ruffle.id)
+          .where('id', numberSort)
+          .firstOrFail()
+
+        if (ticket.userId) {
+          await Prize.query()
+            .where('ruffle_id', ruffle.id)
+            .where('placing', contPrizes)
+            .update({ ticket_id: ticket.id })
+          contPrizes++
+          ruffleBuy = true
+        } else {
+          ruffleBuy = false
+        }
+      } while (!ruffleBuy)
+      console.log(contPrizes)
+
+      if (contPrizes > maxPrizes) {
+        notSort = false
+      }
+    } while (notSort)
+
+    const prizeWinner = await ruffle
+      .related('prizes')
+      .query()
+      .preload('TicketHasOne', (ticketQuery) => {
+        ticketQuery.preload('User')
+      })
+    return view.render('ruffle/sort', { ruffle_id: params.ruffle_id, prizeWinner })
   }
 }
